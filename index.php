@@ -6,6 +6,7 @@
 -->
 <html>
 	<head>
+		<?php wp_head(); ?>
 		<title>Devendra Vyas-Personal Website</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,6 +16,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
+		<?php wp_footer(); ?>
 
 		<!-- Sidebar -->
 			<section id="sidebar">
