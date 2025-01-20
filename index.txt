@@ -32,11 +32,14 @@ Contact
 
 About me
 
-I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media. I enjoy turning complex problems into simple, beautiful and intuitive designs.
+By day I code, by night I jest, 
+Neural nets or laughs, I give my best.
 
-My job is to build your website so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.
+Experienced Machine Learning Engineer and Researcher specializing in ML product strategy, development, and deployment. As a freelancer, I help organizations leverage AI to solve complex problems and drive innovation. Key projects include leading the EU-supported Distributed AI on Edge(dAIEdge) initiative and developing safety-centered autonomous systems at Edge Case Research GmbH.
 
+With a strong foundation in Deep Learning, Computer Vision, and Software Engineering my expertise includes designing product roadmaps, developing proof-of-concepts, and deploying robust ML pipelines.
 
+Connect with me to explore collaborations or freelance opportunities in machine learning and AI product development. 
 ## service
 
 What i'm doing
