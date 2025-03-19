@@ -7,6 +7,43 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
+    /* Force visibility of key elements */
+    .blog-post {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .blog-content {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .article-title {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .blog-meta {
+      margin-bottom: 15px;
+    }
+
+    .blog-category {
+      display: inline-block;
+    }
+
+    .blog-banner {
+      margin: 20px 0;
+    }
+
+    .blog-banner img {
+      max-width: 100%;
+      height: auto;
+    }
+
     .loading {
       text-align: center;
       padding: 2rem;
@@ -76,38 +113,31 @@
         const response = await fetch(`./posts/${postId}.json`);
         const post = await response.json();
         
-        // First, try updating with just the title to test basic DOM manipulation
-        contentDiv.innerHTML = `<h1>${post.metadata.title}</h1>`;
+        const fullContent = `
+          <header style="display: block !important;">
+            <div class="blog-meta" style="display: block !important;">
+              <p class="blog-category">${post.metadata.category}</p>
+              <span class="dot"></span>
+              <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+            </div>
+            <h1 class="h2 article-title" style="display: block !important;">${post.metadata.title}</h1>
+          </header>
+          ${post.metadata.image ? `
+            <figure class="blog-banner" style="display: block !important;">
+              <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
+            </figure>
+          ` : ''}
+          <div class="blog-content" style="display: block !important;">
+            ${marked.parse(post.content)}
+          </div>
+        `;
         
-        // Wait a moment, then try adding the rest of the content
-        setTimeout(() => {
-          try {
-            const fullContent = `
-              <header>
-                <div class="blog-meta">
-                  <p class="blog-category">${post.metadata.category}</p>
-                  <span class="dot"></span>
-                  <time datetime="${post.metadata.date}">${post.metadata.date}</time>
-                </div>
-                <h1 class="h2 article-title">${post.metadata.title}</h1>
-              </header>
-              ${post.metadata.image ? `
-                <figure class="blog-banner">
-                  <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
-                </figure>
-              ` : ''}
-              <div class="blog-content">
-                ${marked ? marked.parse(post.content) : post.content}
-              </div>
-            `;
-            
-            contentDiv.innerHTML = fullContent;
-            console.log('Content updated');
-          } catch (error) {
-            console.error('Error updating full content:', error);
-            contentDiv.innerHTML += `<p style="color: red;">Error rendering full content: ${error.message}</p>`;
-          }
-        }, 100);
+        contentDiv.innerHTML = fullContent;
+        
+        // Force a reflow
+        contentDiv.style.display = 'none';
+        contentDiv.offsetHeight; // trigger reflow
+        contentDiv.style.display = 'block';
 
       } catch (error) {
         console.error('Error:', error);
