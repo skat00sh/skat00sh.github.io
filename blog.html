@@ -22,60 +22,76 @@
   </main>
 
   <script>
-    async function loadBlogPosts() {
-      try {
-        // Fetch the list of JSON files from posts directory
-        const response = await fetch('./posts/index.json');
-        const posts = await response.json();
-        
-        // Sort posts by date (newest first)
-        posts.sort((a, b) => new Date(b.metadata.date) - new Date(a.metadata.date));
+    // Function to load blog posts
+    function initializeBlogPosts() {
+      async function loadBlogPosts() {
+        try {
+          const response = await fetch('./posts/index.json');
+          const posts = await response.json();
+          
+          // Sort posts by date (newest first)
+          posts.sort((a, b) => new Date(b.metadata.date) - new Date(a.metadata.date));
 
-        // Generate HTML for each post
-        const postsHTML = posts.map(post => `
-          <li class="blog-post-item">
-            <a href="blog-post.html?post=${post.id}">
-              <figure class="blog-banner-box">
-                <img src="${post.metadata.image || './assets/images/fallback.jpg'}" 
-                     alt="${post.metadata.title}" 
-                     loading="lazy">
-              </figure>
+          // Generate HTML for each post
+          const postsHTML = posts.map(post => `
+            <li class="blog-post-item">
+              <a href="blog-post.html?post=${post.id}">
+                <figure class="blog-banner-box">
+                  <img src="${post.metadata.image || './assets/images/fallback.jpg'}" 
+                       alt="${post.metadata.title}" 
+                       loading="lazy">
+                </figure>
 
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <p class="blog-category">${post.metadata.category}</p>
-                  <span class="dot"></span>
-                  <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">${post.metadata.category}</p>
+                    <span class="dot"></span>
+                    <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">${post.metadata.title}</h3>
+
+                  <p class="blog-text">
+                    ${post.metadata.description || post.content.split('\n')[0]}
+                  </p>
                 </div>
+              </a>
+            </li>
+          `).join('');
 
-                <h3 class="h3 blog-item-title">${post.metadata.title}</h3>
+          // Update the blog list
+          document.getElementById('blog-list').innerHTML = postsHTML;
 
-                <p class="blog-text">
-                  ${post.metadata.description || post.content.split('\n')[0]}
-                </p>
+        } catch (error) {
+          console.error('Error loading blog posts:', error);
+          document.getElementById('blog-list').innerHTML = `
+            <li>
+              <div class="error">
+                <p>Error loading blog posts. Please try again later.</p>
+                <pre>${error.message}</pre>
               </div>
-            </a>
-          </li>
-        `).join('');
-
-        // Update the blog list
-        document.getElementById('blog-list').innerHTML = postsHTML;
-
-      } catch (error) {
-        console.error('Error loading blog posts:', error);
-        document.getElementById('blog-list').innerHTML = `
-          <li>
-            <div class="error">
-              <p>Error loading blog posts. Please try again later.</p>
-              <pre>${error.message}</pre>
-            </div>
-          </li>
-        `;
+            </li>
+          `;
+        }
       }
+
+      // Load posts
+      loadBlogPosts();
     }
 
-    // Load posts when the page loads
-    loadBlogPosts();
+    // Initialize when included via w3.includeHTML
+    if (window.w3) {
+      // If the page is already loaded, initialize immediately
+      if (document.readyState === 'complete') {
+        initializeBlogPosts();
+      } else {
+        // Otherwise wait for the load event
+        window.addEventListener('load', initializeBlogPosts);
+      }
+    } else {
+      // Fallback for direct access
+      initializeBlogPosts();
+    }
   </script>
 </body>
 </html>

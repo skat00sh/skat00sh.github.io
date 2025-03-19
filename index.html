@@ -140,8 +140,23 @@
             // Show corresponding page
             const targetPage = document.querySelector(`[data-page="${this.textContent.toLowerCase()}"]`);
             targetPage.classList.add('active');
+
+            // Initialize blog posts when blog tab is clicked
+            if (this.textContent.toLowerCase() === 'blog') {
+              if (typeof initializeBlogPosts === 'function') {
+                initializeBlogPosts();
+              }
+            }
           });
         });
+
+        // Initialize blog if it's the active page
+        const activePage = document.querySelector('[data-page].active');
+        if (activePage && activePage.classList.contains('blog')) {
+          if (typeof initializeBlogPosts === 'function') {
+            initializeBlogPosts();
+          }
+        }
       });
     });
   </script>
