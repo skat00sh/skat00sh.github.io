@@ -1,12 +1,25 @@
-<header>
-    <h2 class="h2 article-title">Blog</h2>
-  </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <main>
+    <article class="blog">
+      <header>
+        <h2 class="h2 article-title">Blog</h2>
+      </header>
 
-  <section class="blog-posts">
-    <ul class="blog-posts-list" id="blog-list">
-      <li>Loading posts...</li>
-    </ul>
-  </section>
+      <section class="blog-posts">
+        <ul class="blog-posts-list" id="blog-list">
+          <li>Loading posts...</li>
+        </ul>
+      </section>
+    </article>
+  </main>
 
   <script>
     async function loadBlogPosts() {
@@ -64,3 +77,5 @@
     // Load posts when the page loads
     loadBlogPosts();
   </script>
+</body>
+</html>
