@@ -5,87 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog Post</title>
   <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .loading {
+      text-align: center;
+      padding: 2rem;
+    }
+    .error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-
   <main>
     <article class="blog-post">
-      <header>
+      <div id="loading" class="loading">Loading post...</div>
+      
+      <header style="display: none" id="post-header">
         <div class="blog-meta">
-          <p class="blog-category"><!-- Category will be inserted here --></p>
+          <p class="blog-category"></p>
           <span class="dot"></span>
-          <time datetime=""><!-- Date will be inserted here --></time>
+          <time datetime=""></time>
         </div>
-        <h1 class="h2 article-title"><!-- Title will be inserted here --></h1>
+        <h1 class="h2 article-title"></h1>
       </header>
 
-      <figure class="blog-banner">
+      <figure class="blog-banner" style="display: none" id="post-banner">
         <img src="" alt="" loading="lazy">
       </figure>
 
-      <div class="blog-content">
-        <!-- Markdown content will be converted and inserted here -->
+      <div class="blog-content" id="post-content">
       </div>
     </article>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Function to get URL parameters
-    function getUrlParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded');
+      
+      async function loadBlogPost() {
+        const loading = document.getElementById('loading');
+        const header = document.getElementById('post-header');
+        const banner = document.getElementById('post-banner');
+        const content = document.getElementById('post-content');
 
-    // Load and render markdown content
-    async function loadBlogPost() {
-      const postId = getUrlParam('post');
-      if (!postId) return;
+        try {
+          const postId = new URLSearchParams(window.location.search).get('post');
+          console.log('Loading post:', postId);
+          
+          if (!postId) {
+            throw new Error('No post ID specified');
+          }
 
-      try {
-        console.log('Loading post:', postId);
-        const response = await fetch(`./posts/${postId}.json`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const response = await fetch(`./posts/${postId}.json`);
+          console.log('Response status:', response.status);
+          
+          if (!response.ok) {
+            throw new Error(`Failed to load post (${response.status})`);
+          }
+
+          const post = await response.json();
+          console.log('Post data loaded');
+
+          // Update metadata
+          document.title = post.metadata.title;
+          header.querySelector('.article-title').textContent = post.metadata.title;
+          header.querySelector('.blog-category').textContent = post.metadata.category;
+          header.querySelector('time').textContent = post.metadata.date;
+          header.querySelector('time').setAttribute('datetime', post.metadata.date);
+          
+          // Show header
+          header.style.display = 'block';
+
+          // Update image if exists
+          if (post.metadata.image) {
+            const img = banner.querySelector('img');
+            img.src = post.metadata.image;
+            img.alt = post.metadata.title;
+            banner.style.display = 'block';
+          }
+
+          // Render content
+          content.innerHTML = marked.parse(post.content);
+          
+          // Hide loading
+          loading.style.display = 'none';
+
+        } catch (error) {
+          console.error('Error:', error);
+          loading.style.display = 'none';
+          content.innerHTML = `
+            <div class="error">
+              <h2>Error loading blog post</h2>
+              <p>Sorry, we couldn't load the blog post. Please try again later.</p>
+              <pre>${error.message}</pre>
+            </div>
+          `;
         }
-        
-        const post = await response.json();
-        
-        // Update metadata
-        document.title = post.metadata.title;
-        document.querySelector('.article-title').textContent = post.metadata.title;
-        document.querySelector('.blog-category').textContent = post.metadata.category;
-        document.querySelector('time').textContent = post.metadata.date;
-        document.querySelector('time').setAttribute('datetime', post.metadata.date);
-        
-        if (post.metadata.image) {
-          const img = document.querySelector('.blog-banner img');
-          img.src = post.metadata.image;
-          img.alt = post.metadata.title;
-        }
+      }
 
-        // Render markdown content
-        document.querySelector('.blog-content').innerHTML = marked.parse(post.content);
-
-      } catch (error) {
-        console.error('Error loading blog post:', error);
-        document.querySelector('.blog-content').innerHTML = `
+      // Load the post
+      if (typeof marked !== 'undefined') {
+        loadBlogPost();
+      } else {
+        console.error('Marked library not loaded');
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('post-content').innerHTML = `
           <div class="error">
-            <h2>Error loading blog post</h2>
-            <p>Sorry, we couldn't load the blog post. Please try again later.</p>
-            <pre>${error.message}</pre>
+            <h2>Error</h2>
+            <p>Required dependencies failed to load. Please try again later.</p>
           </div>
         `;
       }
-    }
-
-    // Wait for marked to load
-    if (typeof marked !== 'undefined') {
-      loadBlogPost();
-    } else {
-      window.addEventListener('load', loadBlogPost);
-    }
+    });
   </script>
 </body>
 </html> 
