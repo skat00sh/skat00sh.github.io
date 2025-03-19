@@ -3,179 +3,64 @@
   </header>
 
   <section class="blog-posts">
-
-    <ul class="blog-posts-list">
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=technical-blog-intro-test">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/my-avatar.png" alt="My Technical Blog Design" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">My Technical Blog Design</h3>
-
-            <p class="blog-text">
-              I've been thinking about my technical blog design for a while now. 
-              I want to create a blog that is easy to read and easy to write. 
-              I want to be able to write about my technical work and share it with others.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=best-fonts-every-designer">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-            <p class="blog-text">
-              Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=design-digest-80">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-            <p class="blog-text">
-              Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=ui-interactions-of-the-week">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-            <p class="blog-text">
-              Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=the-forgotten-art-of-spacing">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-            <p class="blog-text">
-              Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
-      <li class="blog-post-item">
-        <a href="blog-post.html?post=design-digest-79">
-
-          <figure class="blog-banner-box">
-            <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-          </figure>
-
-          <div class="blog-content">
-
-            <div class="blog-meta">
-              <p class="blog-category">Design</p>
-
-              <span class="dot"></span>
-
-              <time datetime="2022-02-23">Fab 23, 2022</time>
-            </div>
-
-            <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-            <p class="blog-text">
-              Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-            </p>
-
-          </div>
-
-        </a>
-      </li>
-
+    <ul class="blog-posts-list" id="blog-list">
+      <li>Loading posts...</li>
     </ul>
-
   </section>
+
+  <script>
+    async function loadBlogPosts() {
+      try {
+        // Fetch the list of JSON files from posts directory
+        const response = await fetch('./posts/index.json');
+        const posts = await response.json();
+        
+        // Sort posts by date (newest first)
+        posts.sort((a, b) => new Date(b.metadata.date) - new Date(a.metadata.date));
+
+        // Generate HTML for each post
+        const postsHTML = posts.map(post => `
+          <li class="blog-post-item">
+            <a href="blog-post.html?post=${post.id}">
+              <figure class="blog-banner-box">
+                <img src="${post.metadata.image || './assets/images/fallback.jpg'}" 
+                     alt="${post.metadata.title}" 
+                     loading="lazy">
+              </figure>
+
+              <div class="blog-content">
+                <div class="blog-meta">
+                  <p class="blog-category">${post.metadata.category}</p>
+                  <span class="dot"></span>
+                  <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+                </div>
+
+                <h3 class="h3 blog-item-title">${post.metadata.title}</h3>
+
+                <p class="blog-text">
+                  ${post.metadata.description || post.content.split('\n')[0]}
+                </p>
+              </div>
+            </a>
+          </li>
+        `).join('');
+
+        // Update the blog list
+        document.getElementById('blog-list').innerHTML = postsHTML;
+
+      } catch (error) {
+        console.error('Error loading blog posts:', error);
+        document.getElementById('blog-list').innerHTML = `
+          <li>
+            <div class="error">
+              <p>Error loading blog posts. Please try again later.</p>
+              <pre>${error.message}</pre>
+            </div>
+          </li>
+        `;
+      }
+    }
+
+    // Load posts when the page loads
+    loadBlogPosts();
+  </script>

@@ -1,0 +1,9 @@
+{
+  "metadata": {
+    "title": "Test Blog",
+    "category": "Paper Dump",
+    "date": "19-03-2025",
+    "image": "./assets/images/my-avatar.png"
+  },
+  "content": "# Test Blog\n\nThis is a test blog.\n\n## Introduction\n\nLet's test if _italic_ and **bold** work."
+}
