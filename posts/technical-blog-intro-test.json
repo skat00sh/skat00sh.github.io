@@ -1,0 +1,9 @@
+{
+  "metadata": {
+    "title": "My Technical Blog Design",
+    "category": "Paper Dump",
+    "date": "19-03-2025",
+    "image": "./assets/images/my-avatar.png"
+  },
+  "content": "# My Technical Blog Design\n\nI've been thinking about my technical blog design for a while now. I want to create a blog that is easy to read and easy to write. I want to be able to write about my technical work and share it with others.\n\n## Introduction\n\nLet's test if _italic_ and **bold** work.\n\n### Lists\nWould be good to test if lists work too.\n\n- Item 1\n- Item 2\n- Item 3\n\n### Links\nAwesome with external links too: [Google](https://www.google.com)\n\n### Code Blocks\nWould be good to test if code blocks work too.\n\n```python\nprint(\"Hello, World!\")\n```\n\n### Images\nWould be good to test if images work too.\n\n![My Avatar](./assets/images/my-avatar.png)\n\n\n\n\n\n[Rest of your markdown content here]"
+}
