@@ -69,74 +69,59 @@
 
     // Main function
     async function loadBlogPost() {
-      debug('Script started');
+      const contentDiv = document.getElementById('content');
       
       try {
-        // Check if marked is loaded
-        if (typeof marked === 'undefined') {
-          throw new Error('Marked library not loaded');
-        }
-        debug('Marked library loaded');
-
-        // Get post ID
         const postId = new URLSearchParams(window.location.search).get('post');
-        debug('Post ID', postId);
-
-        if (!postId) {
-          throw new Error('No post ID specified');
-        }
-
-        // Fetch post
-        const url = `./posts/${postId}.json`;
-        debug('Fetching URL', url);
-        
-        const response = await fetch(url);
-        debug('Response status', response.status);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        const response = await fetch(`./posts/${postId}.json`);
         const post = await response.json();
-        debug('Post data loaded', post);
-
-        // Render content
-        const content = `
-          <header>
-            <div class="blog-meta">
-              <p class="blog-category">${post.metadata.category}</p>
-              <span class="dot"></span>
-              <time datetime="${post.metadata.date}">${post.metadata.date}</time>
-            </div>
-            <h1 class="h2 article-title">${post.metadata.title}</h1>
-          </header>
-          ${post.metadata.image ? `
-            <figure class="blog-banner">
-              <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
-            </figure>
-          ` : ''}
-          <div class="blog-content">
-            ${marked.parse(post.content)}
-          </div>
-        `;
-
-        debug('Content rendered');
-        document.getElementById('content').innerHTML = content;
-        debug('Content inserted into DOM');
+        
+        // First, try updating with just the title to test basic DOM manipulation
+        contentDiv.innerHTML = `<h1>${post.metadata.title}</h1>`;
+        
+        // Wait a moment, then try adding the rest of the content
+        setTimeout(() => {
+          try {
+            const fullContent = `
+              <header>
+                <div class="blog-meta">
+                  <p class="blog-category">${post.metadata.category}</p>
+                  <span class="dot"></span>
+                  <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+                </div>
+                <h1 class="h2 article-title">${post.metadata.title}</h1>
+              </header>
+              ${post.metadata.image ? `
+                <figure class="blog-banner">
+                  <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
+                </figure>
+              ` : ''}
+              <div class="blog-content">
+                ${marked ? marked.parse(post.content) : post.content}
+              </div>
+            `;
+            
+            contentDiv.innerHTML = fullContent;
+            console.log('Content updated');
+          } catch (error) {
+            console.error('Error updating full content:', error);
+            contentDiv.innerHTML += `<p style="color: red;">Error rendering full content: ${error.message}</p>`;
+          }
+        }, 100);
 
       } catch (error) {
-        handleError(error, 'Failed to load blog post');
+        console.error('Error:', error);
+        contentDiv.innerHTML = `
+          <div style="color: red; padding: 20px; border: 1px solid red;">
+            <h2>Error loading blog post</h2>
+            <pre>${error.message}</pre>
+          </div>
+        `;
       }
     }
 
-    // Start loading when the page is ready
-    if (document.readyState === 'loading') {
-      debug('Document still loading, adding event listener');
-      document.addEventListener('DOMContentLoaded', loadBlogPost);
-    } else {
-      debug('Document already loaded, starting immediately');
-      loadBlogPost();
-    }
+    // Start immediately
+    loadBlogPost();
   </script>
 </body>
 </html> 
