@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+  <main>
+    <article class="blog-post">
+      <header>
+        <div class="blog-meta">
+          <p class="blog-category"><!-- Category will be inserted here --></p>
+          <span class="dot"></span>
+          <time datetime=""><!-- Date will be inserted here --></time>
+        </div>
+        <h1 class="h2 article-title"><!-- Title will be inserted here --></h1>
+      </header>
+
+      <figure class="blog-banner">
+        <img src="" alt="" loading="lazy">
+      </figure>
+
+      <div class="blog-content">
+        <!-- Markdown content will be converted and inserted here -->
+      </div>
+    </article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // Function to get URL parameters
+    function getUrlParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Load and render markdown content
+    async function loadBlogPost() {
+      const postId = getUrlParam('post');
+      if (!postId) return;
+
+      try {
+        const response = await fetch(`./posts/${postId}.md`);
+        const markdown = await response.text();
+        
+        // Parse front matter (assuming format: ---)
+        const [_, frontMatter, content] = markdown.split('---');
+        const metadata = Object.fromEntries(
+          frontMatter.trim().split('\n').map(line => line.split(': '))
+        );
+
+        // Update metadata
+        document.title = metadata.title;
+        document.querySelector('.article-title').textContent = metadata.title;
+        document.querySelector('.blog-category').textContent = metadata.category;
+        document.querySelector('time').textContent = metadata.date;
+        document.querySelector('time').setAttribute('datetime', metadata.date);
+        
+        if (metadata.image) {
+          const img = document.querySelector('.blog-banner img');
+          img.src = metadata.image;
+          img.alt = metadata.title;
+        }
+
+        // Render markdown content
+        document.querySelector('.blog-content').innerHTML = marked.parse(content);
+      } catch (error) {
+        console.error('Error loading blog post:', error);
+      }
+    }
+
+    loadBlogPost();
+  </script>
+</body>
+</html> 
