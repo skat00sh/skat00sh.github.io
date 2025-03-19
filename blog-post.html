@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog Post</title>
   <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     .loading {
       text-align: center;
@@ -23,106 +24,57 @@
 <body>
   <main>
     <article class="blog-post">
-      <div id="loading" class="loading">Loading post...</div>
-      
-      <header style="display: none" id="post-header">
-        <div class="blog-meta">
-          <p class="blog-category"></p>
-          <span class="dot"></span>
-          <time datetime=""></time>
-        </div>
-        <h1 class="h2 article-title"></h1>
-      </header>
-
-      <figure class="blog-banner" style="display: none" id="post-banner">
-        <img src="" alt="" loading="lazy">
-      </figure>
-
-      <div class="blog-content" id="post-content">
-      </div>
+      <div id="content">Loading...</div>
     </article>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded');
-      
-      async function loadBlogPost() {
-        const loading = document.getElementById('loading');
-        const header = document.getElementById('post-header');
-        const banner = document.getElementById('post-banner');
-        const content = document.getElementById('post-content');
+    console.log('Script started');
+    
+    const postId = new URLSearchParams(window.location.search).get('post');
+    console.log('Loading post:', postId);
 
-        try {
-          const postId = new URLSearchParams(window.location.search).get('post');
-          console.log('Loading post:', postId);
-          
-          if (!postId) {
-            throw new Error('No post ID specified');
-          }
-
-          const response = await fetch(`./posts/${postId}.json`);
+    if (!postId) {
+      document.getElementById('content').innerHTML = 'No post ID specified';
+    } else {
+      fetch(`./posts/${postId}.json`)
+        .then(response => {
           console.log('Response status:', response.status);
+          return response.json();
+        })
+        .then(post => {
+          console.log('Post data loaded:', post);
           
-          if (!response.ok) {
-            throw new Error(`Failed to load post (${response.status})`);
-          }
-
-          const post = await response.json();
-          console.log('Post data loaded');
-
-          // Update metadata
-          document.title = post.metadata.title;
-          header.querySelector('.article-title').textContent = post.metadata.title;
-          header.querySelector('.blog-category').textContent = post.metadata.category;
-          header.querySelector('time').textContent = post.metadata.date;
-          header.querySelector('time').setAttribute('datetime', post.metadata.date);
-          
-          // Show header
-          header.style.display = 'block';
-
-          // Update image if exists
-          if (post.metadata.image) {
-            const img = banner.querySelector('img');
-            img.src = post.metadata.image;
-            img.alt = post.metadata.title;
-            banner.style.display = 'block';
-          }
-
-          // Render content
-          content.innerHTML = marked.parse(post.content);
-          
-          // Hide loading
-          loading.style.display = 'none';
-
-        } catch (error) {
+          document.getElementById('content').innerHTML = `
+            <header>
+              <div class="blog-meta">
+                <p class="blog-category">${post.metadata.category}</p>
+                <span class="dot"></span>
+                <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+              </div>
+              <h1 class="h2 article-title">${post.metadata.title}</h1>
+            </header>
+            ${post.metadata.image ? `
+              <figure class="blog-banner">
+                <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
+              </figure>
+            ` : ''}
+            <div class="blog-content">
+              ${marked.parse(post.content)}
+            </div>
+          `;
+        })
+        .catch(error => {
           console.error('Error:', error);
-          loading.style.display = 'none';
-          content.innerHTML = `
+          document.getElementById('content').innerHTML = `
             <div class="error">
               <h2>Error loading blog post</h2>
               <p>Sorry, we couldn't load the blog post. Please try again later.</p>
               <pre>${error.message}</pre>
             </div>
           `;
-        }
-      }
-
-      // Load the post
-      if (typeof marked !== 'undefined') {
-        loadBlogPost();
-      } else {
-        console.error('Marked library not loaded');
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('post-content').innerHTML = `
-          <div class="error">
-            <h2>Error</h2>
-            <p>Required dependencies failed to load. Please try again later.</p>
-          </div>
-        `;
-      }
-    });
+        });
+    }
   </script>
 </body>
 </html> 
