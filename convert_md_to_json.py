@@ -40,18 +40,49 @@ def convert_md_to_json(md_file_path):
     print(f"Converted {md_file_path} to {output_path}")
 
 
+def create_posts_index(directory_path):
+    directory = Path(directory_path)
+    posts = []
+
+    # Find all JSON files in the directory
+    json_files = directory.glob("*.json")
+
+    for json_file in json_files:
+        if json_file.name == "index.json":
+            continue
+
+        try:
+            with open(json_file, "r", encoding="utf-8") as file:
+                post_data = json.load(file)
+
+                # Add the post ID (filename without extension)
+                post_data["id"] = json_file.stem
+                posts.append(post_data)
+
+        except Exception as e:
+            print(f"Error reading {json_file}: {str(e)}")
+
+    # Write the index file
+    index_path = directory / "index.json"
+    with open(index_path, "w", encoding="utf-8") as file:
+        json.dump(posts, file, indent=2, ensure_ascii=False)
+
+    print(f"Created index file with {len(posts)} posts")
+
+
 def convert_directory(directory_path):
-    # Convert Path string to Path object if it's a string
     directory = Path(directory_path)
 
-    # Find all .md files in the directory
+    # Convert all markdown files
     md_files = directory.glob("*.md")
-
     for md_file in md_files:
         try:
             convert_md_to_json(md_file)
         except Exception as e:
             print(f"Error converting {md_file}: {str(e)}")
+
+    # Create the index file
+    create_posts_index(directory)
 
 
 if __name__ == "__main__":

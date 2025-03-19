@@ -1,0 +1,22 @@
+[
+    {
+      "metadata": {
+        "title": "Example Post",
+        "category": "Tech",
+        "date": "2024-03-20",
+        "image": "./assets/images/example.jpg"
+      },
+      "content": "# Example Post\n\nThis is the content...",
+      "id": "example-post"
+    },
+    {
+      "metadata": {
+        "title": "Another Post",
+        "category": "Design",
+        "date": "2024-03-19",
+        "image": "./assets/images/another.jpg"
+      },
+      "content": "# Another Post\n\nMore content...",
+      "id": "another-post"
+    }
+  ] 
