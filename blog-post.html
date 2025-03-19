@@ -19,6 +19,20 @@
       margin: 1rem 0;
       border-radius: 4px;
     }
+    #debug {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -27,53 +41,101 @@
       <div id="content">Loading...</div>
     </article>
   </main>
+  
+  <div id="debug"></div>
 
   <script>
-    console.log('Script started');
-    
-    const postId = new URLSearchParams(window.location.search).get('post');
-    console.log('Loading post:', postId);
+    // Debug logging function
+    function debug(message, data) {
+      const debugEl = document.getElementById('debug');
+      debugEl.style.display = 'block';
+      const time = new Date().toLocaleTimeString();
+      const msg = data ? `${message}: ${JSON.stringify(data)}` : message;
+      debugEl.innerHTML += `<div>[${time}] ${msg}</div>`;
+      console.log(message, data || '');
+    }
 
-    if (!postId) {
-      document.getElementById('content').innerHTML = 'No post ID specified';
+    // Error handling function
+    function handleError(error, message) {
+      debug(`ERROR: ${message}`, error);
+      document.getElementById('content').innerHTML = `
+        <div class="error" style="color: red; padding: 20px; border: 1px solid red;">
+          <h2>Error loading blog post</h2>
+          <p>${message}</p>
+          <pre>${error.message}</pre>
+        </div>
+      `;
+    }
+
+    // Main function
+    async function loadBlogPost() {
+      debug('Script started');
+      
+      try {
+        // Check if marked is loaded
+        if (typeof marked === 'undefined') {
+          throw new Error('Marked library not loaded');
+        }
+        debug('Marked library loaded');
+
+        // Get post ID
+        const postId = new URLSearchParams(window.location.search).get('post');
+        debug('Post ID', postId);
+
+        if (!postId) {
+          throw new Error('No post ID specified');
+        }
+
+        // Fetch post
+        const url = `./posts/${postId}.json`;
+        debug('Fetching URL', url);
+        
+        const response = await fetch(url);
+        debug('Response status', response.status);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const post = await response.json();
+        debug('Post data loaded', post);
+
+        // Render content
+        const content = `
+          <header>
+            <div class="blog-meta">
+              <p class="blog-category">${post.metadata.category}</p>
+              <span class="dot"></span>
+              <time datetime="${post.metadata.date}">${post.metadata.date}</time>
+            </div>
+            <h1 class="h2 article-title">${post.metadata.title}</h1>
+          </header>
+          ${post.metadata.image ? `
+            <figure class="blog-banner">
+              <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
+            </figure>
+          ` : ''}
+          <div class="blog-content">
+            ${marked.parse(post.content)}
+          </div>
+        `;
+
+        debug('Content rendered');
+        document.getElementById('content').innerHTML = content;
+        debug('Content inserted into DOM');
+
+      } catch (error) {
+        handleError(error, 'Failed to load blog post');
+      }
+    }
+
+    // Start loading when the page is ready
+    if (document.readyState === 'loading') {
+      debug('Document still loading, adding event listener');
+      document.addEventListener('DOMContentLoaded', loadBlogPost);
     } else {
-      fetch(`./posts/${postId}.json`)
-        .then(response => {
-          console.log('Response status:', response.status);
-          return response.json();
-        })
-        .then(post => {
-          console.log('Post data loaded:', post);
-          
-          document.getElementById('content').innerHTML = `
-            <header>
-              <div class="blog-meta">
-                <p class="blog-category">${post.metadata.category}</p>
-                <span class="dot"></span>
-                <time datetime="${post.metadata.date}">${post.metadata.date}</time>
-              </div>
-              <h1 class="h2 article-title">${post.metadata.title}</h1>
-            </header>
-            ${post.metadata.image ? `
-              <figure class="blog-banner">
-                <img src="${post.metadata.image}" alt="${post.metadata.title}" loading="lazy">
-              </figure>
-            ` : ''}
-            <div class="blog-content">
-              ${marked.parse(post.content)}
-            </div>
-          `;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('content').innerHTML = `
-            <div class="error">
-              <h2>Error loading blog post</h2>
-              <p>Sorry, we couldn't load the blog post. Please try again later.</p>
-              <pre>${error.message}</pre>
-            </div>
-          `;
-        });
+      debug('Document already loaded, starting immediately');
+      loadBlogPost();
     }
   </script>
 </body>
