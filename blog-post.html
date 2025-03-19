@@ -43,36 +43,49 @@
       if (!postId) return;
 
       try {
-        const response = await fetch(`./posts/${postId}.md`);
-        const markdown = await response.text();
+        console.log('Loading post:', postId);
+        const response = await fetch(`./posts/${postId}.json`);
         
-        // Parse front matter (assuming format: ---)
-        const [_, frontMatter, content] = markdown.split('---');
-        const metadata = Object.fromEntries(
-          frontMatter.trim().split('\n').map(line => line.split(': '))
-        );
-
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const post = await response.json();
+        
         // Update metadata
-        document.title = metadata.title;
-        document.querySelector('.article-title').textContent = metadata.title;
-        document.querySelector('.blog-category').textContent = metadata.category;
-        document.querySelector('time').textContent = metadata.date;
-        document.querySelector('time').setAttribute('datetime', metadata.date);
+        document.title = post.metadata.title;
+        document.querySelector('.article-title').textContent = post.metadata.title;
+        document.querySelector('.blog-category').textContent = post.metadata.category;
+        document.querySelector('time').textContent = post.metadata.date;
+        document.querySelector('time').setAttribute('datetime', post.metadata.date);
         
-        if (metadata.image) {
+        if (post.metadata.image) {
           const img = document.querySelector('.blog-banner img');
-          img.src = metadata.image;
-          img.alt = metadata.title;
+          img.src = post.metadata.image;
+          img.alt = post.metadata.title;
         }
 
         // Render markdown content
-        document.querySelector('.blog-content').innerHTML = marked.parse(content);
+        document.querySelector('.blog-content').innerHTML = marked.parse(post.content);
+
       } catch (error) {
         console.error('Error loading blog post:', error);
+        document.querySelector('.blog-content').innerHTML = `
+          <div class="error">
+            <h2>Error loading blog post</h2>
+            <p>Sorry, we couldn't load the blog post. Please try again later.</p>
+            <pre>${error.message}</pre>
+          </div>
+        `;
       }
     }
 
-    loadBlogPost();
+    // Wait for marked to load
+    if (typeof marked !== 'undefined') {
+      loadBlogPost();
+    } else {
+      window.addEventListener('load', loadBlogPost);
+    }
   </script>
 </body>
 </html> 
