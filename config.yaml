@@ -1,8 +1,65 @@
 baseURL: https://skat00sh.github.io
 languageCode: "en"
 defaultContentLanguage: "en"
-title: Dev AI Ventures
+title: "Vyas Dev"
 theme: PaperMod
+
+# Site parameters
+params:
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: false
+  ShowWordCount: true
+  ShowFullTextinRSS: false
+  
+  # Profile mode
+  profileMode:
+    enabled: true
+    title: "Vyas Dev"
+    subtitle: "Software Developer"
+    imageUrl: "images/profile.jpg"  # You'll need to add this image
+    imageTitle: "Vyas Dev"
+    imageLink: "https://github.com/skat00sh"
+    buttons:
+      - name: GitHub
+        url: "https://github.com/skat00sh"
+      - name: LinkedIn
+        url: "https://linkedin.com/in/your-profile"  # Update with your LinkedIn URL
+      - name: Email
+        url: "mailto:your.email@example.com"  # Update with your email
+
+# Menu configuration
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: cv
+      name: CV
+      url: /cv/
+      weight: 20
+    - identifier: posts
+      name: Blog
+      url: /posts/
+      weight: 30
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 40
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 50
+
+# Output configuration
+outputs:
+  home:
+    - HTML
 
 languages:
   en:
@@ -12,19 +69,6 @@ languages:
       category: categories
       tag: tags
       series: series
-    menu:
-      main:
-        - name: Archive
-          url: archives
-          weight: 5
-        - name: Search
-          url: search/
-          weight: 10
-        - name: Tags
-          url: tags/
-          weight: 10
-        - name: WiKi
-          url: https://github.com/adityatelange/hugo-PaperMod/wiki
 
 # PaperMod theme specific settings
 params:
