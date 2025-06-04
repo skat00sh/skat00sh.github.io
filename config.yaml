@@ -1,0 +1,44 @@
+baseURL: https://skat00sh.github.io
+languageCode: "en"
+defaultContentLanguage: "en"
+title: Dev AI Ventures
+theme: PaperMod
+
+languages:
+  en:
+    languageName: "English"
+    weight: 1
+    taxonomies:
+      category: categories
+      tag: tags
+      series: series
+    menu:
+      main:
+        - name: Archive
+          url: archives
+          weight: 5
+        - name: Search
+          url: search/
+          weight: 10
+        - name: Tags
+          url: tags/
+          weight: 10
+        - name: WiKi
+          url: https://github.com/adityatelange/hugo-PaperMod/wiki
+
+# PaperMod theme specific settings
+params:
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: false
+  ShowWordCount: true
+  ShowFullTextinRSS: false
+
+# Only enable HTML output for now
+outputs:
+  home:
+    - HTML
