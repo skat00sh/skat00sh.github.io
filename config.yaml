@@ -30,7 +30,7 @@ params:
       - name: LinkedIn
         url: "https://linkedin.com/in/devendravyas"  # Update with your LinkedIn URL
       - name: Email
-        url: "mailto:your.email@example.com"  # Update with your email
+        url: "mailto:vyas.dev.ms@gmail.com"  # Update with your email
 
 # Menu configuration
 menu:
@@ -55,10 +55,6 @@ menu:
       name: Search
       url: /search/
       weight: 50
-    - identifier: contact
-      name: Devendra Vyas
-      url: /contact/
-      weight: 60
 
 # Output configuration
 outputs:
