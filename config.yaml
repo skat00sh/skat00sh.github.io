@@ -19,8 +19,8 @@ params:
   # Profile mode
   profileMode:
     enabled: true
-    title: "Vyas Dev"
-    subtitle: "Software Developer"
+    title: "Devendra `Vyas"
+    subtitle: "Experienced ML Engineer"
     imageUrl: "images/profile.jpg"  # You'll need to add this image
     imageTitle: "Vyas Dev"
     imageLink: "https://github.com/skat00sh"
@@ -55,6 +55,10 @@ menu:
       name: Search
       url: /search/
       weight: 50
+    - identifier: contact
+      name: Devendra Vyas
+      url: /contact/
+      weight: 60
 
 # Output configuration
 outputs:
