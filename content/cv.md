@@ -1,16 +1,22 @@
 ---
 title: "Curriculum Vitae"
-date: 2024-06-04
+date: 2025-11-24
 draft: false
 ---
 
 ## Professional Experience
 
-### Software Developer
-**Company Name** | 2020 - Present
-- Led development of key features resulting in 30% performance improvement
-- Mentored junior developers and conducted code reviews
-- Implemented CI/CD pipelines reducing deployment time by 50%
+### Sr. ML Research Engineer
+**Verses Technologies — Freelancer, Remote** | Apr 2025 - Present
+- Working as Technical Lead for smart-warehouse use case under the Distributed AI on Edge (dAIEdge) initiative.
+
+- Optimizing perception-to-action models using a hybrid Deep Learning and Active Inference based approach for both real-world and simulation testing.
+
+- Collaborating with researchers to develop solutions for low-latency edge inference.
+
+- Applied research on smart-routing agents using ROS2 Active Inference (Variational Bayesian Inference) in simulation (ISAAC Omniverse) and on real-world AMRs and drones.
+
+_Publication:_ “Towards smart and adaptive agents for active sensing on edge devices”, D. Vyas, M. De Prado, T. Verbelen, HiPeac 2025.​
 
 ### Junior Developer
 **Previous Company** | 2018 - 2020
