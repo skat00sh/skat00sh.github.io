@@ -16,9 +16,9 @@ params:
   ShowWordCount: true
   ShowFullTextinRSS: false
   
-  # Profile mode
+  # Profile mode (disabled to show posts list with intro)
   profileMode:
-    enabled: true
+    enabled: false
     title: "Devendra Vyas"
     subtitle: "Experienced ML Engineer"
     imageUrl: "images/profile.jpg"  # You'll need to add this image
@@ -31,6 +31,15 @@ params:
         url: "https://linkedin.com/in/devendravyas"  # Update with your LinkedIn URL
       - name: Email
         url: "mailto:vyas.dev.ms@gmail.com"  # Update with your email
+
+  # Home info mode - shows intro section on home page
+  homeInfoParams:
+    Title: "Hi there 👋"
+    Content: "Thanks for stopping By. I'm Dev, an experienced ML Engineer with 6+ years of experience building and automating scalable, real-time ML systems. 
+              As a freelancer, I help organizations design and deploy deep learning and ML infrastructure for production use. 
+              With a strong foundation in Deep Learning, Computer Vision, and Software Engineering, my expertise includes MLOps, 
+              testing and monitoring of DL models, and low-latency edge inference pipelines."
+    AlignSocialIconsTo: "left"
 
 # Menu configuration
 menu:
@@ -71,18 +80,19 @@ languages:
       series: series
 
 # PaperMod theme specific settings
-params:
-  defaultTheme: auto
-  ShowReadingTime: true
-  ShowShareButtons: true
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowRssButtonInSectionTermList: false
-  ShowWordCount: true
-  ShowFullTextinRSS: false
+# params:
+#   defaultTheme: auto
+#   ShowReadingTime: true
+#   ShowShareButtons: true
+#   ShowPostNavLinks: true
+#   ShowBreadCrumbs: true
+#   ShowCodeCopyButtons: true
+#   ShowRssButtonInSectionTermList: false
+#   ShowWordCount: true
+#   ShowFullTextinRSS: false
 
-# Only enable HTML output for now
-outputs:
-  home:
-    - HTML
+# # Only enable HTML output for now
+# outputs:
+#   home:
+#     - HTML
+
