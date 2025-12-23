@@ -14,7 +14,7 @@ draft: false
 - Optimized the end-to-end detection stack (pre/post-processing + YOLOv10n inference) with TensorRT on Jetson Orin NX and desktop GPUs, achieving 26 ms latency at 640×640 for real-time edge deployment
 - Integrated a DepthAnythingv2-based depth estimation module into the TensorRT perception pipeline, cutting depth latency from 1 s to 50 ms and delivering a combined depth + detection stack at 10 FPS (640×640) and 13 FPS (378×378) on Jetson Orin NX
 
-{{/collapse}}
+{{</collapse >}}
 
 ### Verses Global Bv 
 **ML Tech Lead (Project: <a href="https://www.daiedge.eu/">dAIEdge</a>) - Contractor, Remote** | Dec 2023 - Present
@@ -34,7 +34,7 @@ trackability.
 - Sourced, Cleaned and Automated MLOps pipeline for large-scale aerial image segmentation dataset
 - Integrated ML experimentation tracking using Sacred and Omniboard
 - Experimented with Deeplab(Semantic Segmentation Model) migration from GPUs to TPUs
-{{/collapse}}
+{{</collapse >}}
 
 ### ADAS Engineer 
 **KPIT Technologies GmbH - Munich, Germany** | Jan 2019 – Aug 2019
@@ -44,7 +44,7 @@ trackability.
 of vehicles
 - Designed the testing module for the Test Driven Development(TDD) of the Vehicle State Monitor (VSM)
 - Contributed to coding standards, code reviews, and source control management
-{{/collapse}}
+{{</collapse >}}
 
 ### Software Engineer 
 **CNRS (XLIM Lab) - Poitiers, France** | Jan 2017 – Aug 2018
@@ -52,7 +52,7 @@ of vehicles
 - My responsibility was to integrate and optimize an algorithm for a simulator that visualizes radio wave propagation.
 - Optimized run-times by approx. 30% and streamlining system reliability
 **Publication:** CupCarbon: A new platform for the design, simulation and 2D/3D visualization of radio propagation and interferences in IoT networks
-{{/collapse}}
+{{</collapse >}}
 
 ## Education
 
@@ -73,7 +73,7 @@ of vehicles
 - MATLAB
 - Java
 - bash 
-{{/collapse}}
+{{</collapse >}}
 ### Libraries
 {{< collapse summary="Libraries" >}}
 - PyTorch
@@ -83,7 +83,7 @@ of vehicles
 - Jax
 - OpenCV
 - Numpy/CuPy
-{{/collapse}}
+{{</collapse >}}
 <!-- ## Certifications
 - AWS Certified Solutions Architect
 - Google Cloud Professional Developer 
