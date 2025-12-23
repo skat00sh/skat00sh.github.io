@@ -20,16 +20,12 @@ _Publication:_ “Towards smart and adaptive agents for active sensing on edge d
 
 ### Edge Case Research GmbH 
 **Machine Learning Engineer - Munich, Germany** | May 2020 – Jan 2022
-<details>
-<summary>My role evolved from conducting deep learning experiments to MLOps, and further to developing project roadmaps for
-customers, focusing on safety-centered autonomous agents</summary>
-
+{{< collapse summary="My role evolved from conducting deep learning experiments to MLOps, and further to developing project roadmaps for customers, focusing on safety-centered autonomous agents" >}}
 - Defined KPIs, iterative model improvements and feature set analysis for Autonomous Trains
 - Collaborated in Agile environments to deliver iterative ML solutions aligned with customer requirements
 - Deployed end-to-end pipeline with Multiple Object Tracking (MOT) feature for ADAS on AWS
 - Extended the Object Detection module from 2D to 3D Bouding Boxes
-
-</details>
+{{< /collapse >}}
 ### Machine Learning Engineer 
 **TerraLoupe GmbH - Munich, Germany** | Oct 2019 – Apr 2020
 - My responsibility involved improving toolchains for deep learning experiments to enhance their reproducibility and
