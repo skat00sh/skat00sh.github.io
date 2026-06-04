@@ -20,7 +20,7 @@ params:
   profileMode:
     enabled: false
     title: "Devendra Vyas"
-    subtitle: "Experienced ML Engineer"
+    subtitle: "ML engineer · edge perception · production AI · private Gen AI"
     imageUrl: "images/profile.jpg"  # You'll need to add this image
     imageTitle: "Devendra Vyas"
     imageLink: "https://github.com/skat00sh"
@@ -30,7 +30,7 @@ params:
       - name: LinkedIn
         url: "https://linkedin.com/in/devendravyas"  # Update with your LinkedIn URL
       - name: Email
-        url: "mailto:vyas.dev.ms@gmail.com"  # Update with your email
+        url: "mailto:vyasdevms@gmail.com"
 
   # Home info mode - shows intro section on home page
   homeInfoParams:

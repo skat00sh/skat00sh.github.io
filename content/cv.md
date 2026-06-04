@@ -1,104 +1,99 @@
 ---
 title: "Curriculum Vitae"
-date: 2025-11-24
+date: 2026-05-01
 draft: false
+description: "ML engineer — edge perception, production AI, and private Gen AI systems"
 ---
+
+[Download full PDF resume](/files/Dev_Resume_ML_Freelance_May_2026.pdf)
+
+## Summary
+
+Solution architecture for AI-enabled workflows, automation, and production ML—from edge perception on Jetson hardware to on-premises LLM/RAG systems without public-cloud dependency. Background in MLOps, computer vision, and translating complex ML work for technical and non-technical stakeholders.
 
 ## Professional Experience
 
-### Verses Inc. 
-**Sr. ML Research Engineer - Contractor, Remote** | Dec 2023 - Present
-{{< collapse summary="Details" >}}
-- Designed and deployed an edge-ready 3D perception stack for reliable warehouse object detection and depth-aware navigation on Jetson-class hardware.
-- Developed an YOLOv10n perception pipeline for warehouse-specific objects using a BlenderProc2-curated synthetic dataset, improving mAP from 0.15 to 0.62 at 640×640 and reducing the sim-to-real gap by retraining the synthetic-initialized model on cleaned, real warehouse data to reach 0.58 mAP
-- Optimized the end-to-end detection stack (pre/post-processing + YOLOv10n inference) with TensorRT on Jetson Orin NX and desktop GPUs, achieving 26 ms latency at 640×640 for real-time edge deployment
-- Integrated a DepthAnythingv2-based depth estimation module into the TensorRT perception pipeline, cutting depth latency from 1 s to 50 ms and delivering a combined depth + detection stack at 10 FPS (640×640) and 13 FPS (378×378) on Jetson Orin NX
+### Sr. ML Research Engineer
+**Verses AI** · Remote (Contractor) · Dec 2023 – Dec 2025
 
-{{</collapse >}}
+- Edge 3D perception for warehouse detection and depth-aware navigation on Jetson-class hardware (YOLOv10n, BlenderProc2 synthetic data, TensorRT).
+- Improved detection mAP (0.15 → 0.62 synthetic; 0.58 real) and cut end-to-end latency to **26 ms** at 640×640; combined depth + detection at **10 FPS** on Jetson Orin NX.
 
-### Verses Global Bv 
-**ML Tech Lead (Project: <a href="https://www.daiedge.eu/">dAIEdge</a>) - Contractor, Remote** | Dec 2023 - Present
-{{< collapse summary="Details" >}}
-- Led development of an Active Inference–based routing agent leveraging the perception pipeline to perform obstacle avoidance, optimizing the planning stack and reducing planning time from 7 minutes to 21 seconds
-- Developed a PyMDP-based saccading agent using a Tapo security camera for active visual exploration, enabling person detection and tracking and later forming the basis of a peer-reviewed conference publication
-- Designed and maintained a 3D simulation pipeline in NVIDIA Isaac Omniverse to develop and evaluate routing agents in realistic warehouse environments before real-world deployment
-**Publication:** Towards smart and adaptive agents for active sensing on edge devices, **D. Vyas**, M. De Prado and T. Verbelen, HiPeac 2025 <a href="https://arxiv.org/abs/2501.06262">Link</a> 
+### ML Tech Lead
+**Verses Global BV (dAIEdge)** · Remote (Contractor) · Dec 2023 – Mar 2026
 
-{{< /collapse >}}
+- Active Inference routing agent on the perception stack; JAX planning optimized from **7 min → 21 s**.
+- PyMDP saccading agent on an IoT camera; Isaac Omniverse simulation for warehouse routing evaluation.
+- Publication: [Towards smart and adaptive agents for active sensing on edge devices](https://arxiv.org/abs/2501.06262) (HiPeac 2025).
 
-### Machine Learning Engineer 
-**TerraLoupe GmbH - Munich, Germany** | Oct 2019 – Apr 2020
-{{< collapse summary="Details" >}}
-- My responsibility involved improving toolchains for deep learning experiments to enhance their reproducibility and
-trackability.
-- Sourced, Cleaned and Automated MLOps pipeline for large-scale aerial image segmentation dataset
-- Integrated ML experimentation tracking using Sacred and Omniboard
-- Experimented with Deeplab(Semantic Segmentation Model) migration from GPUs to TPUs
-{{</collapse >}}
+### AI Strategy Consultant
+**Dev AI Ventures (Self-Employed)** · Remote · Jan 2024 – Present
 
-### ADAS Engineer 
-**KPIT Technologies GmbH - Munich, Germany** | Jan 2019 – Aug 2019
-{{< collapse summary="Details" >}}
-- My task was to create a Vehicle State Monitor that handles high-frequency data from multiple sensors on the car
-• Developed a GUI dashboard that can process processes high-frequency data to monitor and visualise the real-time health
-of vehicles
-- Designed the testing module for the Test Driven Development(TDD) of the Vehicle State Monitor (VSM)
-- Contributed to coding standards, code reviews, and source control management
-{{</collapse >}}
+- Docai.tools: OCR → private RAG architecture (chunking, embeddings, deployment).
+- SOTA VLM research for Drizz.dev; deep-learning strategy for Eventgraphia (image culling).
 
-### Software Engineer 
-**CNRS (XLIM Lab) - Poitiers, France** | Jan 2017 – Aug 2018
-{{< collapse summary="Details" >}}
-- My responsibility was to integrate and optimize an algorithm for a simulator that visualizes radio wave propagation.
-- Optimized run-times by approx. 30% and streamlining system reliability
-**Publication:** CupCarbon: A new platform for the design, simulation and 2D/3D visualization of radio propagation and interferences in IoT networks
-{{</collapse >}}
+### Machine Learning Engineer
+**Edge Case Research GmbH** · Munich · May 2020 – Jan 2022
+
+- End-to-end ADAS perception with MOT on AWS; 2D detection extended to 3D bounding boxes.
+- Production monitoring and alerting with Weights & Biases across model versions.
+
+### Machine Learning Engineer
+**TerraLoupe GmbH** · Munich · Oct 2019 – Apr 2020
+
+- Docker/CI/CD MLOps for multi-TB aerial segmentation; Sacred/Omniboard across 20+ iterations (**~40%** faster experimentation).
+- GPU vs TPU benchmarking to inform production infrastructure strategy.
+
+### ADAS Engineer
+**KPIT Technologies GmbH** · Munich · Jan 2019 – Aug 2019
+
+- Vehicle State Monitor for **100+ Hz** multi-sensor telemetry; real-time health GUI and automated test framework.
+
+### Software Engineer
+**CNRS (XLIM Lab)** · Poitiers · Jan 2017 – Aug 2018
+
+- Radio propagation simulator optimization (~**30%** runtime reduction).
+- Publication: [CupCarbon (CCNC 2018)](https://doi.org/10.1109/CCNC.2018.8319179).
+
+## Research Experience
+
+### Fraunhofer AISEC
+**Munich** · Feb 2022 – Sep 2023
+
+- Robustness/privacy research on CNNs, Lipschitz bounds, and DP threats; containerized reproducible evaluation pipelines.
+- Preprint: [Gradient masking and underestimated robustness threats of DP in deep learning](https://arxiv.org/abs/2105.07985).
+
+### Master's Thesis · Synthetic Adversarial Generation
+**Fraunhofer AISEC** · Feb – Aug 2023 · Grade 1.0/5.0
+
+- DDPM synthetic adversarial datasets for CIFAR-10 robustness retraining (+8–10% ResNet18 accuracy).
+
+### Warp Automotive / UnternehmerTUM
+**Munich** · Nov 2020 – Mar 2021
+
+- Urban pedestrian segmentation and LiDAR PoC; MLOps pipeline (Docker, experiment tracking, Go-task automation).
+
+### CAMP Chair, TUM
+**Munich** · Apr – Jul 2020
+
+- U-Net multi-coil MRI 3D reconstruction (3rd place globally); NeRF exploration for CT-from-X-ray.
+- Publication: [Multi-Coil MRI Reconstruction Challenge (Frontiers in Neuroscience)](https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2022.919186/full).
 
 ## Education
 
-### M.Sc. Informatics 
-**Technical University of Munich** | Focus: ML and CV | Oct 2019 – Aug 2023
+### M.Sc. Informatics (ML & CV)
+**Technical University of Munich** · Oct 2019 – Aug 2023
 
+### B.Tech Computer Science
+**LNM Institute of Information Technology, Jaipur** · Jul 2012 – Jun 2016
 
-### Bachelors of Technology in Computer Science
-**The LNM Institue of Information Technology, B.Tech Computer Science** | Jul 2012 – Jun 2016
+## Technical Skills
 
-
-
-## Skills
-
-{{< collapse summary="Languages" >}}
-- Python 
-- C++
-- MATLAB
-- Java
-- bash 
-{{</collapse >}}
-### Libraries
-{{< collapse summary="Libraries" >}}
-- PyTorch
-- Tensorflow
-- ROS2
-- PyMDP
-- Jax
-- OpenCV
-- Numpy/CuPy
-{{</collapse >}}
-<!-- ## Certifications
-- AWS Certified Solutions Architect
-- Google Cloud Professional Developer 
-{{/collapse}}
-
-## Languages
-- English (Bilingual)
-- German (A2+ level)
-- Hindi (Native)
-
-<!-- ## Projects
-- [Project 1](https://github.com/yourusername/project1): Brief description
-- [Project 2](https://github.com/yourusername/project2): Brief description -->
+**Gen AI:** vLLM, Ollama, RAG pipelines, LoRA, agent workflows · **MLOps:** Docker, FastAPI, W&B/MLflow, CI/CD (GitHub Actions, Jenkins), Kubernetes · **Cloud:** AWS, GCE · **Core:** PyTorch, JAX, TensorFlow, OpenCV, ROS/ROS2 · **Languages:** Python, C++, Java, MATLAB, bash
 
 ## Contact
-- Email: your.email@example.com
-- LinkedIn: [Your Profile](https://linkedin.com/in/your-profile)
-- GitHub: [Your Profile](https://github.com/skat00sh) 
+
+- Email: [vyasdevms@gmail.com](mailto:vyasdevms@gmail.com)
+- LinkedIn: [devendravyas](https://linkedin.com/in/devendravyas)
+- GitHub: [skat00sh](https://github.com/skat00sh)
+- Publications: [csauthors.net](https://www.csauthors.net/devendra-vyas/)
