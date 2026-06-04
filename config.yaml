@@ -35,10 +35,10 @@ params:
   # Home info mode - shows intro section on home page
   homeInfoParams:
     Title: "Hi there 👋"
-    Content: "Thanks for stopping By. I'm Dev, an experienced ML Engineer with 6+ years of experience building and automating scalable, real-time ML systems. 
-              As a freelancer, I help organizations design and deploy deep learning and ML infrastructure for production use. 
-              With a strong foundation in Deep Learning, Computer Vision, and Software Engineering, my expertise includes MLOps, 
-              testing and monitoring of DL models, and low-latency edge inference pipelines."
+    Content: "Thanks for stopping by—I'm Devendra, an ML engineer who ships systems that have to run reliably in production, not just score well in a notebook.
+
+              I write here about edge perception, MLOps, and private Gen AI. 
+              For work, I take on freelance engagements—from AI strategy and “do we need this?” assessments to MLOps audits and a practical path to integrate ML or Gen AI when it actually fits. See my [CV](/cv/) for the full timeline, or reach out via the links below if you'd like to connect."
     AlignSocialIconsTo: "left"
 
 # Menu configuration

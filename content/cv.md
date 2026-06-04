@@ -2,14 +2,15 @@
 title: "Curriculum Vitae"
 date: 2026-05-01
 draft: false
-description: "ML engineer — edge perception, production AI, and private Gen AI systems"
+description: "ML engineer — AI strategy, production systems, edge perception, private Gen AI"
 ---
 
 [Download full PDF resume](/files/Dev_Resume_ML_Freelance_May_2026.pdf)
 
 ## Summary
 
-Solution architecture for AI-enabled workflows, automation, and production ML—from edge perception on Jetson hardware to on-premises LLM/RAG systems without public-cloud dependency. Background in MLOps, computer vision, and translating complex ML work for technical and non-technical stakeholders.
+Senior ML engineer and AI strategy consultant with 6+ years across ADAS perception, aerial segmentation, and edge robotics. Advises on AI fit and integration—readiness assessments, MLOps audits, and practical roadmaps for ML/Gen AI when the business case is there—alongside hands-on delivery in computer vision and 3D perception (TensorRT/Jetson), production MLOps (CI/CD, experiment tracking, monitoring), and private Gen AI (RAG, on-prem deployment). Leads work end to end as a contractor and tech lead, from synthetic data and sim-to-real through latency budgets and stakeholder-ready outcomes.
+
 
 ## Professional Experience
 
@@ -89,11 +90,19 @@ Solution architecture for AI-enabled workflows, automation, and production ML—
 
 ## Technical Skills
 
-**Gen AI:** vLLM, Ollama, RAG pipelines, LoRA, agent workflows · **MLOps:** Docker, FastAPI, W&B/MLflow, CI/CD (GitHub Actions, Jenkins), Kubernetes · **Cloud:** AWS, GCE · **Core:** PyTorch, JAX, TensorFlow, OpenCV, ROS/ROS2 · **Languages:** Python, C++, Java, MATLAB, bash
+**Gen AI:** vLLM, Ollama, RAG pipelines, LoRA, agent workflows · 
+
+**MLOps:** Docker, FastAPI, W&B/MLflow, CI/CD (GitHub Actions, Jenkins), Kubernetes · 
+
+**Cloud:** AWS, GCE · 
+
+**Core:** PyTorch, JAX, TensorFlow, OpenCV, ROS/ROS2 · 
+
+**Languages:** Python, C++, Java, MATLAB, bash
 
 ## Contact
 
 - Email: [vyasdevms@gmail.com](mailto:vyasdevms@gmail.com)
 - LinkedIn: [devendravyas](https://linkedin.com/in/devendravyas)
 - GitHub: [skat00sh](https://github.com/skat00sh)
-- Publications: [csauthors.net](https://www.csauthors.net/devendra-vyas/)
+- Publications: [Google Scholar](https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en)
