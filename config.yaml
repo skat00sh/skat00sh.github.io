@@ -1,4 +1,4 @@
-baseURL: https://skat00sh.github.io
+baseURL: https://vyas.dev
 languageCode: "en"
 defaultContentLanguage: "en"
 title: "Devendra Vyas"
@@ -6,6 +6,21 @@ theme: PaperMod
 
 # Site parameters
 params:
+  description: "Freelance ML engineer and AI strategy consultant — MLOps audits, AI readiness, edge perception, on-prem Gen AI. Based in Europe, remote worldwide."
+  schema:
+    publisherType: Person
+    sameAs:
+      - https://vyas.dev/
+      - https://linkedin.com/in/devendravyas
+      - https://github.com/skat00sh
+      - https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en
+  socialIcons:
+    - name: github
+      url: "https://github.com/skat00sh"
+    - name: linkedin
+      url: "https://linkedin.com/in/devendravyas"
+    - name: email
+      url: "mailto:vyasdevms@gmail.com"
   defaultTheme: auto
   ShowReadingTime: true
   ShowShareButtons: true
@@ -38,7 +53,7 @@ params:
     Content: "Thanks for stopping by—I'm Devendra, an ML engineer who ships systems that have to run reliably in production, not just score well in a notebook.
 
               I write here about edge perception, MLOps, and private Gen AI. 
-              For work, I take on freelance engagements—from AI strategy and “do we need this?” assessments to MLOps audits and a practical path to integrate ML or Gen AI when it actually fits. See my [CV](/cv/) for the full timeline, or reach out via the links below if you'd like to connect."
+              For work, I take on freelance engagements—from AI strategy and “do we need this?” assessments to MLOps audits and a practical path to integrate ML or Gen AI when it actually fits. See [consulting](/consulting/) for offerings, [CV](/cv/) for background, or reach out via the links below."
     AlignSocialIconsTo: "left"
 
 # Menu configuration
@@ -52,6 +67,10 @@ menu:
       name: CV
       url: /cv/
       weight: 20
+    - identifier: consulting
+      name: Consulting
+      url: /consulting/
+      weight: 25
     - identifier: posts
       name: Blog
       url: /posts/
