@@ -6,6 +6,9 @@ theme: PaperMod
 
 # Site parameters
 params:
+  author:
+    name: Devendra Vyas
+    email: vyasdevms@gmail.com
   description: "Freelance ML engineer and AI strategy consultant — MLOps audits, AI readiness, edge perception, on-prem Gen AI. Based in Europe, remote worldwide."
   schema:
     publisherType: Person

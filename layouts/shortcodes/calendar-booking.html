@@ -1,0 +1,21 @@
+<div class="calendar-booking">
+<script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2rio0u-0Hu_E5uAMvaxomrUh3QQ8d-cnhxtGfhGQ17Ae0XEZLDs3YMQCHxJlLc5ZEV9hAVrmFc?gv=true',
+      color: '#33B679',
+      label: 'Book an appointment',
+      target,
+    });
+  });
+})();
+</script>
+</div>
+
+<style>
+.calendar-booking {
+  margin: 1rem 0 0.5rem;
+}
+</style>

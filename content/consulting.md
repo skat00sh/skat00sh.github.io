@@ -76,6 +76,10 @@ Freelance **ML engineer and AI strategy consultant** based in Europe, working re
 | **Delivery** | Remote, async-friendly; overlap with your timezone where needed |
 | **Handoff** | Docs, code, or runbooks your team can own |
 
+**Book an intro call:**
+
+{{< calendar-booking >}}
+
 I work as an **independent contractor** (not agency resale). NDA and EU/GDPR-aware setups are routine.
 
 ---
@@ -84,4 +88,4 @@ I work as an **independent contractor** (not agency resale). NDA and EU/GDPR-awa
 
 6+ years across ADAS perception, aerial segmentation, edge robotics (Verses AI, Edge Case Research, Fraunhofer AISEC, TUM). See **[full CV](/cv/)** and **[PDF resume](/files/Dev_Resume_ML_Freelance_May_2026.pdf)** for roles, metrics, and publications.
 
-To start: **[vyasdevms@gmail.com](mailto:vyasdevms@gmail.com)** with a short note on your team, problem, and timeline.
+To start: use the scheduler above, or email **[vyasdevms@gmail.com](mailto:vyasdevms@gmail.com)** with a short note on your team, problem, and timeline.
