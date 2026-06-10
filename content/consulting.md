@@ -21,7 +21,7 @@ Freelance **ML engineer and AI strategy consultant** based in Europe, working re
 - Readiness assessment: data, team skills, existing tooling, and what a sensible first milestone looks like.
 - Integration roadmap: phased plan from pilot to production, with explicit non-AI alternatives when they are the better fit.
 
-**Deliverables:** written assessment, prioritized options, and a concrete next-step proposal (often 1–2 weeks).
+**Deliverables:** written assessment, prioritized options, and a concrete next-step proposal.
 
 ---
 
@@ -61,7 +61,7 @@ Freelance **ML engineer and AI strategy consultant** based in Europe, working re
 
 - Architecture for OCR → chunking → embeddings → retrieval (vLLM, Ollama, on-prem deployment).
 - Evaluation of VLMs/RAG quality, privacy boundaries, and operational runbooks.
-- Strategy for Drizz-style product research or docai.tools-style private knowledge bases.
+- Use-case scoping: which document workflows justify RAG, what a pilot should prove, and when search or fine-tuning is the better fit.
 
 **Deliverables:** reference architecture, PoC, or production path depending on scope.
 
@@ -72,7 +72,7 @@ Freelance **ML engineer and AI strategy consultant** based in Europe, working re
 | Phase | What happens |
 |-------|----------------|
 | **Intro call** | 30 minutes — scope, constraints, whether there is a fit |
-| **Scoping** | Fixed proposal: deliverables, timeline, rate (day-rate or fixed-scope) |
+| **Scoping** | Fixed proposal: deliverables, timeline, rate |
 | **Delivery** | Remote, async-friendly; overlap with your timezone where needed |
 | **Handoff** | Docs, code, or runbooks your team can own |
 
