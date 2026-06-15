@@ -25,6 +25,8 @@ params:
     - name: email
       url: "mailto:vyasdevms@gmail.com"
   defaultTheme: auto
+  footer:
+    text: "[Impressum](/impressum/) · [Datenschutz](/datenschutz/) · [Sitemap](/sitemap/)"
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
