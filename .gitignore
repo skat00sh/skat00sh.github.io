@@ -1,9 +1,8 @@
 # Hugo build output and generated files
-public/
+*public*
 resources/_gen/
 .hugo_build.lock
 hugo_stats.json
 
 # OS / editor cruft
 .DS_Store
-
