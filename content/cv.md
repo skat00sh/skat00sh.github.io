@@ -5,7 +5,7 @@ draft: false
 description: "ML engineer — AI strategy, production systems, edge perception, private Gen AI"
 ---
 
-[Download full PDF resume](/files/Dev_Resume_ML_Freelance_May_2026.pdf) · [Consulting offerings](/consulting/)
+[Download full PDF resume](/files/01_Dev_Resume_ML_Freelance_June_2026.pdf) · [Consulting offerings](/consulting/)
 
 ## Summary
 
