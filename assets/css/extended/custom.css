@@ -1,0 +1,99 @@
+/* CV nav dropdown */
+
+/* PaperMod sets #menu { overflow-x: auto }, which forces overflow-y to auto and
+   clips the absolutely-positioned dropdown. Let it overflow so the menu shows. */
+#menu {
+    overflow: visible;
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav-dropdown-caret {
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-caret,
+.nav-dropdown:focus-within .nav-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 12rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    line-height: 1.4;
+    background: var(--theme);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 1000;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-menu li {
+    margin: 0;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    color: var(--primary);
+}
+
+.nav-dropdown-menu a:hover {
+    background: var(--tertiary);
+}
+
+/* Don't carry the nav's underline-style active marker into the dropdown */
+.nav-dropdown-menu .active {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+/* Keep the dropdown reachable across the small gap below the trigger */
+.nav-dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+
+/* On narrow screens the menu can't scroll horizontally anymore, so let it wrap
+   and pin the dropdown to the left edge to avoid overflowing the viewport. */
+@media (max-width: 600px) {
+    #menu {
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+
+    .nav-dropdown-menu {
+        left: 0;
+        right: auto;
+    }
+}

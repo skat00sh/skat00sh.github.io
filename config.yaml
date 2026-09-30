@@ -72,6 +72,16 @@ menu:
       name: CV
       url: /cv/
       weight: 20
+    - identifier: cv-full
+      name: Full Work Experience
+      parent: cv
+      url: /cv/
+      weight: 1
+    - identifier: cv-interactive
+      name: Interactive
+      parent: cv
+      url: /cv/interactive/
+      weight: 2
     - identifier: consulting
       name: Consulting
       url: /consulting/

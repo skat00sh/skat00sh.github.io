@@ -1,0 +1,183 @@
+{{- $id := .Get "id" | default "skill-proof" -}}
+<div class="skill-proof" id="{{ $id }}">
+  <div class="skill-proof__buttons" role="group" aria-label="Filter experience by skill">
+    <button type="button" class="skill-proof__btn is-active" data-skill="all" aria-pressed="true">All</button>
+    <button type="button" class="skill-proof__btn" data-skill="edge" aria-pressed="false">Edge Perception &amp; CV</button>
+    <button type="button" class="skill-proof__btn" data-skill="mlops" aria-pressed="false">MLOps</button>
+    <button type="button" class="skill-proof__btn" data-skill="genai" aria-pressed="false">Gen AI &amp; RAG</button>
+    <button type="button" class="skill-proof__btn" data-skill="strategy" aria-pressed="false">AI Strategy</button>
+    <button type="button" class="skill-proof__btn" data-skill="research" aria-pressed="false">Research</button>
+  </div>
+
+  <p class="skill-proof__hint">Pick a skill to see the proof from my experience.</p>
+
+  <div class="skill-proof__cards">
+    <article class="skill-proof__card" data-skills="edge research">
+      <div class="skill-proof__meta">Verses AI · Sr. ML Research Engineer</div>
+      <p>Edge 3D perception for warehouse detection and depth-aware navigation on Jetson-class hardware. Improved detection mAP <strong>0.15 → 0.62</strong> (synthetic; 0.58 real), cut end-to-end latency to <strong>26 ms</strong> at 640×640, and combined depth + detection at <strong>10 FPS</strong> on Jetson Orin NX.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="edge strategy">
+      <div class="skill-proof__meta">Verses Global BV (dAIEdge) · ML Tech Lead</div>
+      <p>Active Inference routing agent on the perception stack; JAX planning optimized from <strong>7 min → 21 s</strong>. PyMDP saccading agent on an IoT camera and Isaac Omniverse simulation for warehouse routing evaluation.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="genai strategy">
+      <div class="skill-proof__meta">Dev AI Ventures · AI Strategy Consultant</div>
+      <p>Built Docai.tools: OCR → private RAG architecture (chunking, embeddings, on-prem deployment). SOTA VLM research for Drizz.dev and deep-learning strategy for Eventgraphia (image culling).</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="edge mlops">
+      <div class="skill-proof__meta">Edge Case Research GmbH · ML Engineer</div>
+      <p>End-to-end ADAS perception with MOT on AWS; extended 2D detection to 3D bounding boxes. Production monitoring and alerting with Weights &amp; Biases across model versions.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="mlops edge">
+      <div class="skill-proof__meta">TerraLoupe GmbH · ML Engineer</div>
+      <p>Docker/CI/CD MLOps for multi-TB aerial segmentation; Sacred/Omniboard across 20+ iterations (<strong>~40%</strong> faster experimentation). GPU vs TPU benchmarking to inform production infrastructure strategy.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="research mlops">
+      <div class="skill-proof__meta">Fraunhofer AISEC · Research</div>
+      <p>Robustness/privacy research on CNNs, Lipschitz bounds, and DP threats, with containerized reproducible evaluation pipelines. Preprint: gradient masking and underestimated robustness threats of DP in deep learning.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="research">
+      <div class="skill-proof__meta">Master's Thesis · Fraunhofer AISEC (Grade 1.0)</div>
+      <p>DDPM synthetic adversarial datasets for CIFAR-10 robustness retraining (<strong>+8–10%</strong> ResNet18 accuracy).</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="research edge">
+      <div class="skill-proof__meta">Verses AI · Publication (HiPeac 2025)</div>
+      <p>“Towards smart and adaptive agents for active sensing on edge devices” — peer-reviewed publication on edge active sensing.</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="edge mlops">
+      <div class="skill-proof__meta">Warp Automotive / UnternehmerTUM · Research</div>
+      <p>Urban pedestrian segmentation and LiDAR PoC, with an MLOps pipeline (Docker, experiment tracking, Go-task automation).</p>
+    </article>
+
+    <article class="skill-proof__card" data-skills="research edge">
+      <div class="skill-proof__meta">CAMP Chair, TUM · Research</div>
+      <p>U-Net multi-coil MRI 3D reconstruction (<strong>3rd place globally</strong>); NeRF exploration for CT-from-X-ray. Published in Frontiers in Neuroscience.</p>
+    </article>
+  </div>
+
+  <p class="skill-proof__empty" hidden>No proof tagged for this skill yet.</p>
+</div>
+
+<style>
+.skill-proof {
+  margin: 1rem 0 2rem;
+}
+.skill-proof__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.skill-proof__btn {
+  cursor: pointer;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--tertiary, #ccc);
+  background: var(--entry, #f5f5f5);
+  color: var(--primary, #1a1a1a);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.skill-proof__btn:hover {
+  border-color: var(--secondary, #999);
+}
+.skill-proof__btn.is-active {
+  background: var(--primary, #1a1a1a);
+  color: var(--theme, #fff);
+  border-color: var(--primary, #1a1a1a);
+}
+.skill-proof__hint {
+  font-size: 0.85rem;
+  color: var(--secondary, #777);
+  margin: 0 0 1rem;
+}
+.skill-proof__cards {
+  display: grid;
+  gap: 0.75rem;
+}
+.skill-proof__card {
+  border: 1px solid var(--border, #eaeaea);
+  border-left: 3px solid var(--tertiary, #ccc);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  background: var(--entry, #fafafa);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.skill-proof__card.is-highlight {
+  border-left-color: var(--primary, #1a1a1a);
+}
+.skill-proof__card[hidden] {
+  display: none;
+}
+.skill-proof__meta {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--secondary, #777);
+  margin-bottom: 0.3rem;
+}
+.skill-proof__card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.skill-proof__empty {
+  color: var(--secondary, #777);
+  font-style: italic;
+}
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById("{{ $id }}");
+  if (!root) return;
+  var buttons = root.querySelectorAll(".skill-proof__btn");
+  var cards = root.querySelectorAll(".skill-proof__card");
+  var empty = root.querySelector(".skill-proof__empty");
+  var hint = root.querySelector(".skill-proof__hint");
+
+  function applyFilter(skill) {
+    var visible = 0;
+    cards.forEach(function (card) {
+      var skills = (card.getAttribute("data-skills") || "").split(/\s+/);
+      var match = skill === "all" || skills.indexOf(skill) !== -1;
+      card.hidden = !match;
+      card.classList.toggle("is-highlight", match && skill !== "all");
+      if (match) visible++;
+    });
+    if (empty) empty.hidden = visible !== 0;
+    if (hint) {
+      hint.textContent = skill === "all"
+        ? "Pick a skill to see the proof from my experience."
+        : "Showing " + visible + " proof" + (visible === 1 ? "" : "s") + " for this skill.";
+    }
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var skill = btn.getAttribute("data-skill");
+      var alreadyActive = btn.classList.contains("is-active") && skill !== "all";
+      if (alreadyActive) skill = "all";
+
+      buttons.forEach(function (b) {
+        var on = b.getAttribute("data-skill") === skill;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      applyFilter(skill);
+    });
+  });
+
+  applyFilter("all");
+})();
+</script>
