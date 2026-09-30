@@ -4,6 +4,7 @@ portrait:
   image: "images/me-risograph.png"            # path under assets/ (preferred) or static/
   image_dark: "images/me-risograph-dark.png"  # optional; used in dark mode
   alt: "Illustrated portrait of Devendra Vyas"
+  offset_y: 0.18   # fraction of the portrait radius; positive moves the photo down inside the circle
 ring:
   start_angle: -90   # degrees; -90 = first segment starts at 12 o'clock
   gap: 2.5           # degrees of empty space between segments

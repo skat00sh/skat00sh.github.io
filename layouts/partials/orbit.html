@@ -204,13 +204,21 @@
     <clipPath id="{{ $clipID }}">
       <circle cx="{{ printf "%.2f" $c }}" cy="{{ printf "%.2f" $c }}" r="{{ printf "%.2f" $clipR }}"/>
     </clipPath>
-    {{- $imgX := sub $c $clipR -}}
-    {{- $imgD := mul $clipR 2.0 -}}
-    <image class="orbit__img orbit__img--light" clip-path="url(#{{ $clipID }})" href="{{ $lightSrc }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgX }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
+    {{- /* offset_y is a fraction of the portrait radius. The photo is drawn larger than the hole so a downward shift still covers the circle. */ -}}
+    {{- $shiftFrac := 0.0 -}}
+    {{- if isset $portrait "offset_y" -}}
+      {{- $shiftFrac = float (index $portrait "offset_y") -}}
+    {{- end -}}
+    {{- $shift := mul $clipR $shiftFrac -}}
+    {{- $extra := add (mul (math.Abs $shift) 2.0) 12.0 -}}
+    {{- $imgD := add (mul $clipR 2.0) $extra -}}
+    {{- $imgX := sub $c (div $imgD 2.0) -}}
+    {{- $imgY := add $imgX $shift -}}
+    <image class="orbit__img orbit__img--light" clip-path="url(#{{ $clipID }})" href="{{ $lightSrc }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgY }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
       <title>{{ $alt }}</title>
     </image>
     {{- with $darkSrc -}}
-    <image class="orbit__img orbit__img--dark" clip-path="url(#{{ $clipID }})" href="{{ . }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgX }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
+    <image class="orbit__img orbit__img--dark" clip-path="url(#{{ $clipID }})" href="{{ . }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgY }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
       <title>{{ $alt }}</title>
     </image>
     {{- end -}}

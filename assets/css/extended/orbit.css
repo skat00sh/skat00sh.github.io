@@ -110,6 +110,42 @@
     display: block;
 }
 
+/* Homepage: intro on the left, wheel on the right. */
+.home-hero {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.home-hero__copy {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.home-hero__portrait {
+    flex: 0 0 46%;
+    width: 46%;
+    max-width: 340px;
+}
+
+.home-hero__portrait .orbit {
+    --orbit-size: 100%;
+    margin: 0;
+}
+
+@media (max-width: 720px) {
+    .home-hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .home-hero__portrait {
+        width: 100%;
+        max-width: 420px;
+        margin-inline: auto;
+    }
+}
+
 @media (max-width: 420px) {
     .orbit__icon {
         display: none;
