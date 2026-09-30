@@ -24,6 +24,9 @@ params:
       url: "https://linkedin.com/in/devendravyas"
     - name: email
       url: "mailto:vyasdevms@gmail.com"
+    - name: googlescholar
+      title: Google Scholar
+      url: "https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en"
   defaultTheme: auto
   footer:
     text: "[Impressum](/impressum/) · [Datenschutz](/datenschutz/) · [Sitemap](/sitemap/)"
