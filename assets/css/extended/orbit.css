@@ -1,0 +1,124 @@
+/*
+  Portrait orbit wheel. Loaded by PaperMod via assets/css/extended/*.css.
+  Theme colours (--theme, --entry, --primary, --tertiary) come from PaperMod.
+  Dark mode follows body.dark (theme toggle). A <noscript> rule in the partial
+  covers prefers-color-scheme when JavaScript is off.
+*/
+
+.orbit {
+    --orbit-bg: var(--entry);
+    --orbit-line: color-mix(in srgb, var(--primary) 28%, var(--entry));
+    --orbit-text: var(--primary);
+    --orbit-accent: var(--primary);
+    --orbit-accent-soft: color-mix(in srgb, var(--primary) 14%, var(--entry));
+    --orbit-size: 520px;
+
+    display: block;
+    width: 100%;
+    max-width: var(--orbit-size);
+    margin: 0 auto 1.25rem;
+}
+
+.orbit svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.orbit__seg {
+    color: var(--orbit-text);
+    text-decoration: none;
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: translate(0, 0);
+    transition: transform 200ms ease-out;
+}
+
+.orbit__wedge {
+    fill: var(--orbit-bg);
+    stroke: var(--orbit-line);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    transition: fill 200ms ease-out, stroke 200ms ease-out, stroke-width 200ms ease-out;
+}
+
+.orbit__seg:hover,
+.orbit__seg:focus-visible,
+.orbit__seg--active {
+    transform: translate(var(--dx), var(--dy));
+    z-index: 1;
+}
+
+.orbit__seg:hover .orbit__wedge,
+.orbit__seg:focus-visible .orbit__wedge,
+.orbit__seg--active .orbit__wedge {
+    fill: var(--orbit-accent-soft);
+    stroke: var(--orbit-accent);
+}
+
+/* The wedge stroke is the focus ring. A CSS outline on an SVG link is the
+   bounding box, which draws a rectangle around the wedge. */
+.orbit__seg:focus-visible {
+    outline: none;
+}
+
+.orbit__seg:focus-visible .orbit__wedge {
+    stroke-width: 3;
+}
+
+.orbit__label {
+    fill: var(--orbit-text);
+    font-family: inherit;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.orbit__icon {
+    color: var(--orbit-text);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
+.orbit__frame {
+    fill: none;
+    stroke: var(--orbit-line);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+}
+
+.orbit__img {
+    pointer-events: none;
+}
+
+.orbit__img--dark {
+    display: none;
+}
+
+.dark .orbit__img--light {
+    display: none;
+}
+
+.dark .orbit__img--dark {
+    display: block;
+}
+
+@media (max-width: 420px) {
+    .orbit__icon {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .orbit__seg,
+    .orbit__wedge {
+        transition: none;
+    }
+}

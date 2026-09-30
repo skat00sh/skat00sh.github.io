@@ -1,0 +1,19 @@
+{{- /*
+  Override of themes/PaperMod/layouts/partials/home_info.html
+  Theme: PaperMod v8.0 (git 5a46517; theme.toml min Hugo 0.146.0).
+  Change: portrait orbit above the home intro. Everything else matches the theme partial.
+*/ -}}
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    {{- partial "orbit.html" $ -}}
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content">
+        {{ .Content | markdownify }}
+    </div>
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end -}}

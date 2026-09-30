@@ -1,0 +1,228 @@
+{{- /*
+  Portrait orbit wheel. Geometry is computed with math.Sin / math.Cos / math.Pi
+  (Hugo ≥ 0.130; CI is 0.147.7 extended).
+
+  Data: site.Data.orbit (data/orbit.yaml), unless the caller passes that map
+  directly, or a dict with an "orbit" key:
+    {{ partial "orbit.html" . }}
+    {{ partial "orbit.html" site.Data.orbit }}
+    {{ partial "orbit.html" (dict "orbit" site.Data.orbit) }}
+*/ -}}
+
+{{- /* site.Data on CI Hugo 0.147; hugo.Data avoids the 0.156 deprecation on newer Hugo. */ -}}
+{{- $data := dict -}}
+{{- if ge hugo.Version "0.156.0" -}}
+  {{- $data = hugo.Data.orbit -}}
+{{- else -}}
+  {{- $data = site.Data.orbit -}}
+{{- end -}}
+{{- $scratchPage := site.Home -}}
+{{- if .Kind -}}
+  {{- $scratchPage = . -}}
+{{- else if reflect.IsMap . -}}
+  {{- if index . "segments" -}}
+    {{- $data = . -}}
+  {{- else if index . "orbit" -}}
+    {{- $data = index . "orbit" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $data -}}
+  {{- errorf "orbit: data/orbit.yaml is missing or empty" -}}
+{{- end -}}
+{{- $segments := $data.segments -}}
+{{- if not $segments -}}
+  {{- errorf "orbit: data/orbit.yaml has no segments" -}}
+{{- end -}}
+{{- $n := len $segments -}}
+{{- if lt $n 1 -}}
+  {{- errorf "orbit: data/orbit.yaml needs at least one segment" -}}
+{{- end -}}
+{{- if gt $n 12 -}}
+  {{- warnf "orbit: %d segments is above 12; labels may get cramped" $n -}}
+{{- end -}}
+
+{{- $portrait := $data.portrait -}}
+{{- if or (not $portrait) (not $portrait.image) -}}
+  {{- errorf "orbit: portrait.image is required in data/orbit.yaml (path under assets/ or static/)" -}}
+{{- end -}}
+{{- $alt := $portrait.alt | default "Portrait" -}}
+
+{{- $ring := $data.ring -}}
+{{- if not $ring -}}
+  {{- $ring = dict -}}
+{{- end -}}
+{{- $startDeg := -90.0 -}}
+{{- if isset $ring "start_angle" -}}
+  {{- $startDeg = float (index $ring "start_angle") -}}
+{{- end -}}
+{{- $gapDeg := 1.0 -}}
+{{- if isset $ring "gap" -}}
+  {{- $gapDeg = float (index $ring "gap") -}}
+{{- end -}}
+{{- $innerRatio := 0.42 -}}
+{{- if isset $ring "inner_ratio" -}}
+  {{- $innerRatio = float (index $ring "inner_ratio") -}}
+{{- end -}}
+
+{{- $c := 320.0 -}}
+{{- $R := 300.0 -}}
+{{- $r := mul $R $innerRatio -}}
+{{- $clipR := sub $r 10.0 -}}
+{{- if le $clipR 20.0 -}}
+  {{- errorf "orbit: ring.inner_ratio (%v) leaves no room for the portrait" $innerRatio -}}
+{{- end -}}
+
+{{- $start := mul math.Pi (div $startDeg 180.0) -}}
+{{- $gap := mul math.Pi (div $gapDeg 180.0) -}}
+{{- $step := div (mul 2.0 math.Pi) (float $n) -}}
+{{- if ge $gap $step -}}
+  {{- errorf "orbit: ring.gap (%v°) is too large for %d segment(s); each wedge would have no arc left" $gapDeg $n -}}
+{{- end -}}
+
+{{- /* ~22 viewBox units stays near 11px when the wheel is ~320px wide. */ -}}
+{{- $font := math.Min 22.0 (add (div 200.0 (float $n)) 5.0) -}}
+
+{{- /* Scratch.Add's return value is not a stable integer across Hugo versions. */ -}}
+{{- $orbitN := $scratchPage.Scratch.Get "orbitCount" | default 0 -}}
+{{- $orbitN = add $orbitN 1 -}}
+{{- $scratchPage.Scratch.Set "orbitCount" $orbitN -}}
+{{- $clipID := printf "orbit-clip-%d" $orbitN -}}
+{{- $baseHost := lower (urls.Parse site.BaseURL).Host -}}
+
+{{- /* Resolve a portrait path: process from assets/, else fall back to static/. */ -}}
+{{- $lightSrc := "" -}}
+{{- $lightRes := resources.Get $portrait.image -}}
+{{- if $lightRes -}}
+  {{- if hugo.IsExtended -}}
+    {{- /* Circle renders at ~210px (about 420px at 2x); 640px covers that and stays near 120 KB. */ -}}
+    {{- $lightRes = $lightRes.Fill "640x640 Center webp q75" -}}
+  {{- else -}}
+    {{- warnf "orbit: Hugo extended is required to resize %q; serving the original" $portrait.image -}}
+  {{- end -}}
+  {{- $lightRes = $lightRes | fingerprint -}}
+  {{- $lightSrc = $lightRes.RelPermalink -}}
+{{- else -}}
+  {{- $lightSrc = $portrait.image | relURL -}}
+  {{- warnf "orbit: portrait %q was not found under assets/. Using %s without resizing. Move the file under assets/ to process it." $portrait.image $lightSrc -}}
+{{- end -}}
+
+{{- $darkSrc := "" -}}
+{{- with $portrait.image_dark -}}
+  {{- $darkRes := resources.Get . -}}
+  {{- if $darkRes -}}
+    {{- if hugo.IsExtended -}}
+      {{- $darkRes = $darkRes.Fill "640x640 Center webp q75" -}}
+    {{- else -}}
+      {{- warnf "orbit: Hugo extended is required to resize %q; serving the original" . -}}
+    {{- end -}}
+    {{- $darkRes = $darkRes | fingerprint -}}
+    {{- $darkSrc = $darkRes.RelPermalink -}}
+  {{- else -}}
+    {{- $darkSrc = . | relURL -}}
+    {{- warnf "orbit: portrait %q was not found under assets/. Using %s without resizing. Move the file under assets/ to process it." . $darkSrc -}}
+  {{- end -}}
+{{- end -}}
+
+<figure class="orbit" aria-label="Sections of this site">
+  <svg viewBox="0 0 640 640" width="640" height="640" role="group">
+    {{- range $i, $seg := $segments -}}
+      {{- $label := "" -}}
+      {{- $url := "" -}}
+      {{- with $seg.label -}}{{- $label = . | string | strings.TrimSpace -}}{{- end -}}
+      {{- with $seg.url -}}{{- $url = . | string | strings.TrimSpace -}}{{- end -}}
+      {{- if not $label -}}
+        {{- errorf "orbit: segment %d in data/orbit.yaml is missing a label" (add $i 1) -}}
+      {{- end -}}
+      {{- if not $url -}}
+        {{- errorf "orbit: segment %d (%q) in data/orbit.yaml is missing a url" (add $i 1) $label -}}
+      {{- end -}}
+
+      {{- $a0 := add (add $start (mul (float $i) $step)) (div $gap 2.0) -}}
+      {{- $a1 := sub (add $start (mul (float (add $i 1)) $step)) (div $gap 2.0) -}}
+      {{- $mid := div (add $a0 $a1) 2.0 -}}
+      {{- $sweep := sub $a1 $a0 -}}
+
+      {{- /*
+        Wedges are polylines, not SVG arcs. hugo --minify (CI) rewrites arc flags
+        so "A r r 0 0 1 x y" collapses and the wedge disappears. A ~5° step
+        is within a fraction of a pixel of a true arc at this size. N=1 is a
+        near-full ring with the same gap; no 360° arc is emitted.
+      */ -}}
+      {{- $steps := int (math.Ceil (div (mul $sweep 180.0) (mul 5.0 math.Pi))) -}}
+      {{- if lt $steps 6 -}}{{- $steps = 6 -}}{{- end -}}
+      {{- if gt $steps 72 -}}{{- $steps = 72 -}}{{- end -}}
+      {{- $wedge := newScratch -}}
+      {{- $wedge.Set "d" (printf "M%.2f %.2f" (add $c (mul $R (math.Cos $a0))) (add $c (mul $R (math.Sin $a0)))) -}}
+      {{- range $k := seq 1 $steps -}}
+        {{- $a := add $a0 (mul $sweep (div (float $k) (float $steps))) -}}
+        {{- $wedge.Set "d" (printf "%sL%.2f %.2f" ($wedge.Get "d") (add $c (mul $R (math.Cos $a))) (add $c (mul $R (math.Sin $a)))) -}}
+      {{- end -}}
+      {{- $wedge.Set "d" (printf "%sL%.2f %.2f" ($wedge.Get "d") (add $c (mul $r (math.Cos $a1))) (add $c (mul $r (math.Sin $a1)))) -}}
+      {{- range $k := seq 1 $steps -}}
+        {{- $a := sub $a1 (mul $sweep (div (float $k) (float $steps))) -}}
+        {{- $wedge.Set "d" (printf "%sL%.2f %.2f" ($wedge.Get "d") (add $c (mul $r (math.Cos $a))) (add $c (mul $r (math.Sin $a)))) -}}
+      {{- end -}}
+      {{- $d := printf "%sZ" ($wedge.Get "d") -}}
+
+      {{- $lx := add $c (mul (div (add $R $r) 2.0) (math.Cos $mid)) -}}
+      {{- $ly := add $c (mul (div (add $R $r) 2.0) (math.Sin $mid)) -}}
+      {{- $dx := mul 8.0 (math.Cos $mid) -}}
+      {{- $dy := mul 8.0 (math.Sin $mid) -}}
+
+      {{- $iconName := "" -}}
+      {{- with $seg.icon -}}{{- $iconName = . | string | strings.TrimSpace -}}{{- end -}}
+      {{- $iconInner := "" -}}
+      {{- if $iconName -}}
+        {{- $iconRes := resources.Get (printf "icons/orbit/%s.svg" $iconName) -}}
+        {{- if $iconRes -}}
+          {{- $iconInner = $iconRes.Content | replaceRE `^[\s\S]*?<svg[^>]*>` "" | replaceRE `</svg>[\s\S]*$` "" | strings.TrimSpace -}}
+        {{- else -}}
+          {{- warnf "orbit: no icon file at assets/icons/orbit/%s.svg for segment %q; rendering without an icon" $iconName $label -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- $parsed := urls.Parse $url -}}
+      {{- $href := $url -}}
+      {{- if not $parsed.IsAbs -}}
+        {{- $href = $url | relLangURL -}}
+      {{- end -}}
+      {{- $external := and $parsed.IsAbs (or (eq $parsed.Scheme "http") (eq $parsed.Scheme "https")) (ne (lower $parsed.Host) $baseHost) -}}
+
+      <a class="orbit__seg{{ if $seg.active }} orbit__seg--active{{ end }}" href="{{ $href }}" aria-label="{{ $label }}" style="--dx: {{ printf "%.2f" $dx }}px; --dy: {{ printf "%.2f" $dy }}px"{{ if $external }} target="_blank" rel="noopener"{{ end }}>
+        <path class="orbit__wedge" d="{{ $d }}"/>
+        {{- if $iconInner -}}
+        <g class="orbit__icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate({{ printf "%.2f" (sub $lx 12.0) }} {{ printf "%.2f" (sub (sub $ly 26.0) 12.0) }})" aria-hidden="true">
+          {{ $iconInner | safeHTML }}
+        </g>
+        {{- end -}}
+        <text class="orbit__label" x="{{ printf "%.2f" $lx }}" y="{{ printf "%.2f" $ly }}" text-anchor="middle" dominant-baseline="central" font-size="{{ printf "%.2f" $font }}">{{ $label }}</text>
+      </a>
+    {{- end -}}
+
+    <circle class="orbit__frame" cx="{{ printf "%.2f" $c }}" cy="{{ printf "%.2f" $c }}" r="{{ printf "%.2f" $clipR }}" aria-hidden="true"/>
+    <clipPath id="{{ $clipID }}">
+      <circle cx="{{ printf "%.2f" $c }}" cy="{{ printf "%.2f" $c }}" r="{{ printf "%.2f" $clipR }}"/>
+    </clipPath>
+    {{- $imgX := sub $c $clipR -}}
+    {{- $imgD := mul $clipR 2.0 -}}
+    <image class="orbit__img orbit__img--light" clip-path="url(#{{ $clipID }})" href="{{ $lightSrc }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgX }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
+      <title>{{ $alt }}</title>
+    </image>
+    {{- with $darkSrc -}}
+    <image class="orbit__img orbit__img--dark" clip-path="url(#{{ $clipID }})" href="{{ . }}" x="{{ printf "%.2f" $imgX }}" y="{{ printf "%.2f" $imgX }}" width="{{ printf "%.2f" $imgD }}" height="{{ printf "%.2f" $imgD }}" preserveAspectRatio="xMidYMid slice">
+      <title>{{ $alt }}</title>
+    </image>
+    {{- end -}}
+  </svg>
+  {{- if $darkSrc -}}
+  <noscript>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .orbit__img--light { display: none !important; }
+        .orbit__img--dark { display: block !important; }
+      }
+    </style>
+  </noscript>
+  {{- end -}}
+</figure>

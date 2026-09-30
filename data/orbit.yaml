@@ -1,0 +1,27 @@
+# Portrait orbit wheel. Add, remove or reorder segments freely.
+# Each segment needs a label and a url. icon is optional (see assets/icons/orbit/).
+portrait:
+  image: "images/me-risograph.png"            # path under assets/ (preferred) or static/
+  image_dark: "images/me-risograph-dark.png"  # optional; used in dark mode
+  alt: "Illustrated portrait of Devendra Vyas"
+ring:
+  start_angle: -90   # degrees; -90 = first segment starts at 12 o'clock
+  gap: 2.5           # degrees of empty space between segments
+  inner_ratio: 0.56  # inner radius as a fraction of outer radius (hole for portrait)
+segments:
+  - label: "Blog"
+    url: "/posts/"
+    icon: "pen"
+  - label: "Consulting"
+    url: "/consulting/"
+    icon: "briefcase"
+  - label: "GitHub"
+    url: "https://github.com/skat00sh"
+    icon: "code"
+  - label: "CV"
+    url: "/cv/"
+    icon: "book"
+  # - label: "Talks"
+  #   url: "/talks/"
+  #   icon: "mic"
+  #   active: true
