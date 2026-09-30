@@ -147,7 +147,7 @@
 
 @media (max-width: 760px) {
     .home-hero {
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: stretch;
         gap: 1.5rem;
     }
