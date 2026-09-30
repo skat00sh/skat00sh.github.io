@@ -110,11 +110,24 @@
     display: block;
 }
 
-/* Homepage: intro on the left, wheel on the right. */
+/* Homepage spans the nav: logo on the left, Search on the right.
+   Post cards stay narrower so a summary line does not run too long. */
+.home-info,
+.main:has(.home-info) .post-entry {
+    --home-span: min(var(--nav-width), calc(100vw - var(--gap) * 2));
+    width: var(--home-span);
+    max-width: none;
+    margin-left: calc((100% - var(--home-span)) / 2);
+}
+
+.main:has(.home-info) .post-entry {
+    --home-span: min(840px, var(--nav-width), calc(100vw - var(--gap) * 2));
+}
+
 .home-hero {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: clamp(2rem, 4vw, 3.25rem);
 }
 
 .home-hero__copy {
@@ -123,26 +136,29 @@
 }
 
 .home-hero__portrait {
-    flex: 0 0 46%;
-    width: 46%;
-    max-width: 340px;
+    flex: 0 0 340px;
+    width: 340px;
 }
 
 .home-hero__portrait .orbit {
-    --orbit-size: 100%;
+    --orbit-size: 340px;
     margin: 0;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
     .home-hero {
         flex-direction: column;
         align-items: stretch;
+        gap: 1.5rem;
     }
 
     .home-hero__portrait {
-        width: 100%;
-        max-width: 420px;
+        width: min(340px, 100%);
         margin-inline: auto;
+    }
+
+    .home-hero__portrait .orbit {
+        --orbit-size: 100%;
     }
 }
 
