@@ -1,3 +1,24 @@
+/* Credit line under the theme footer */
+.footer-thanks {
+    max-width: calc(var(--main-width) + var(--gap) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gap) var(--gap);
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--secondary);
+}
+
+.footer-thanks a {
+    color: inherit;
+    border-bottom: 1px solid var(--secondary);
+}
+
+.footer-thanks a:hover {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
 /* CV nav dropdown */
 
 /* PaperMod sets #menu { overflow-x: auto }, which forces overflow-y to auto and
