@@ -27,6 +27,9 @@ params:
     - name: googlescholar
       title: Google Scholar
       url: "https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en"
+    - name: toptal
+      title: Hire me on Toptal
+      url: "https://www.toptal.com/developers/resume/devendra-vyas#GdbROm"
   defaultTheme: auto
   footer:
     text: "[Impressum](/impressum/) · [Datenschutz](/datenschutz/) · [Sitemap](/sitemap/)"

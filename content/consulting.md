@@ -7,7 +7,7 @@ description: "Freelance ML engineer and AI strategy consultant — readiness ass
 
 Freelance **ML engineer and AI strategy consultant** based in Europe, working remotely with teams that need honest answers before they scale models or buy more GPU.
 
-**[Email](mailto:vyasdevms@gmail.com)** · **[LinkedIn](https://linkedin.com/in/devendravyas)** · **[CV](/cv/)** · **[Google Scholar](https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en)**
+**[Email](mailto:vyasdevms@gmail.com)** · **[LinkedIn](https://linkedin.com/in/devendravyas)** · **[Hire me on Toptal](https://www.toptal.com/developers/resume/devendra-vyas#GdbROm)** · **[CV](/cv/)** · **[Google Scholar](https://scholar.google.com/citations?user=5MVuvHAAAAAJ&hl=en)**
 
 ---
 
